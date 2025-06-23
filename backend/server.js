@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { connectDB } from "./db/config.js";
+import { seedDB } from "./db/seedDB.js";
 
 dotenv.config();
 
@@ -27,5 +28,6 @@ app.get("/data", (req, res) => {
 
 app.listen(PORT, INTERFACE, async () => {
   await connectDB();
+  await seedDB();
   console.log(`Listening on http:localhost:${PORT}`);
 });
