@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { connectDB } from "./db/config.js";
 import { seedDB } from "./db/seedDB.js";
 
+import userRouter from "./routes/userRoutes.js";
+
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -18,6 +20,8 @@ app.use(express.json());
 app.disable("x-powered-by");
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/user", userRouter);
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello from server, hi" });
 });
@@ -28,6 +32,6 @@ app.get("/data", (req, res) => {
 
 app.listen(PORT, INTERFACE, async () => {
   await connectDB();
-  await seedDB();
+  // await seedDB();
   console.log(`Listening on http:localhost:${PORT}`);
 });
