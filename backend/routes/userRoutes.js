@@ -34,7 +34,6 @@ userRouter.post("/signin", async (req, res) => {
       res.status(404).json({ message: "Invalid username or password" });
       return;
     }
-    console.log(user);
     if (!(await user.comparePassword(password))) {
       res.status(404).json({ message: "Invalid username or password" });
       return;
@@ -49,6 +48,14 @@ userRouter.post("/signin", async (req, res) => {
     console.log(err);
     res.status(400).json({ error: err });
   }
+});
+
+userRouter.get("/me", (req, res) => {
+  if (req.session.user) {
+    res.json({ user: req.session.user });
+    return;
+  }
+  res.json({ message: "Invaild user" });
 });
 
 export default userRouter;
