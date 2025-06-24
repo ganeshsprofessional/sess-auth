@@ -24,8 +24,16 @@ const SESS_LIFETIME = process.env.SESS_LIFETIME;
 
 const app = express();
 // const MongoStore = new connectStore(session, MONGODB_URI);
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      console.log("Request Origin:", origin);
+      callback(null, true); // Allow the request
+    },
+    credentials: true,
+  })
+);
 
-app.use(cors());
 app.use(express.json());
 app.disable("x-powered-by");
 app.use(express.urlencoded({ extended: true }));
